@@ -8,6 +8,8 @@
 #ifndef _ACOMPONENT_HPP_
 # define _ACOMPONENT_HPP_
 
+#include <string>
+#include <iostream>
 #include "IComponent.hpp"
 # include "4001.hpp"
 # include "4008.hpp"
