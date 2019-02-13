@@ -1,18 +1,23 @@
+//
+// EPITECH PROJECT, 2019
+// NanoTekSpice
+// File description:
+// 4081 header
+//
+
+#ifndef _4081_HPP_
+# define _4081_HPP
+
 #include "IComponent.hpp"
 
-class CMP4081: public nts::IComponent
+namespace nts
 {
-    private:
-        /* data */
+  class CM4081 : public nts::IComponent
+  {
     public:
-        CMP4081(/* args */);
-        ~CMP4081();
+        CMP4081(const std::string &name);
+        virtual ~CMP4081(void);
+  };
 };
 
-CMP4081::CMP4081(/* args */)
-{
-}
-
-CMP4081::~CMP4081()
-{
-}
+#endif

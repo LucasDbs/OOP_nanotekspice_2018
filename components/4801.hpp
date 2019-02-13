@@ -1,3 +1,10 @@
+//
+// EPITECH PROJECT, 2019
+// NanoTekSpcie
+// File description:
+// 4801 header
+//
+
 #include "IComponent.hpp"
 
 class CMP4801: public nts::IComponent

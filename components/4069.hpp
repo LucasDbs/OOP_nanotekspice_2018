@@ -1,3 +1,10 @@
+//
+// EPITECH PROJECT, 2019
+// NanoTekSpice
+// File description:
+// 4069 header
+//
+
 #include "IComponent.hpp"
 
 class CMP4069: public nts::IComponent

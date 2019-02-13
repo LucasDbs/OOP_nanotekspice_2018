@@ -1,18 +1,16 @@
+//
+// EPITECH PROJECT, 2019
+// NanoTekSPice
+// File description:
+// 4071 header
+//
+
 #include "IComponent.hpp"
 
 class CMP4071: public nts::IComponent
 {
-    private:
-        /* data */
     public:
-        CMP4071(/* args */);
-        ~CMP4071();
+        CMP4071(const std::string &name);
+        CMP4071(const CMP4071 &);
+        ~CMP4071(void);
 };
-
-CMP4071::CMP4071(/* args */)
-{
-}
-
-CMP4071::~CMP4071()
-{
-}
