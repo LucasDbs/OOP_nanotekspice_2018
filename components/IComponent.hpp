@@ -1,29 +1,66 @@
-//
+        //
 // EPITECH PROJECT, 2019
-// NanoTekSpice 
+// IComponent.hpp
 // File description:
-// IComponent header
+// Sabri Ouaked ~ IComponent.hpp Include file
 //
+ 
+#if !defined(ICOMPONENTS)
+#define ICOMPONENTS
 
 #include <iostream>
+#include "Gates.hpp"
 
 namespace nts
 {
-    enum Tristate {
-        UNDEFINED = (-true),
-        TRUE = true,
-        FALSE = false
-    };
-    class IComponent
-    {
-        public:
-            virtual ~IComponent() = default;
-        
-        public:
-            virtual nts::Tristate compute(std:: size_t  pin = 1) = 0;
-            virtual void setLink(std::size_t pin, nts::IComponent &other, std::size_t  otherPin) = 0;
-            virtual void dump() const = 0;
-    };
+        class IComponent
+        {
+                public:
+                        virtual ~IComponent() = default;
+                        virtual Pins **getPins() = 0;
+                        virtual Gates **getGates() = 0;
+                        virtual int countPins() = 0;
+                        virtual int countGates() = 0;
+                        Pins *findPin(std::size_t id);
+                        Gates *findGate(size_t id);
+
+                public:
+                        virtual nts::Tristate compute(std::size_t  pin = 1) = 0;
+                        virtual void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin) = 0;
+                        //     virtual void dump() const = 0;
+        };
 };
 
-std::unique_ptr<IComponent>createComponent(const std::string &type, const std::string &value);
+Pins *nts::IComponent::findPin(std::size_t id)
+{
+        Gates **gates = this->getGates();
+        Pins **pins = this->getPins();
+        Pins *gates_pin;
+
+        for (int i = 0; i < this->countPins(); i++) {
+                if (pins[i]->getId() == id)
+                        return pins[i];
+        }
+        for (int a = 0; a < this->countGates(); a++) {
+                gates_pin = gates[a]->getInputs();
+                for (int it = 0; it < gates[a]->countInputs(); it++) {
+                        if (gates_pin[it].getId() == id)
+                                return &gates_pin[it];
+                }
+        }
+        return NULL;
+}
+
+
+Gates *nts::IComponent::findGate(size_t id)
+{
+        Gates **gates = this->getGates();
+        for (int i = 0; i < this->countGates(); i++) {
+                if (gates[i]->getId() == id)
+                        return gates[i];
+        }
+        return NULL;
+}
+
+
+#endif // ICOMPONENTS
