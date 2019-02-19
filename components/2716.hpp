@@ -1,3 +1,10 @@
+//
+// EPITECH PROJECT, 2019
+// NanotekSpice
+// File description:
+// 2716 ehader
+//
+
 #include "IComponent.hpp"
 
 class CMP2716: public nts::IComponent

@@ -1,3 +1,10 @@
+//
+// EPITECH PROJECT, 2019
+// NanoTekSpice 
+// File description:
+// IComponent header
+//
+
 #include <iostream>
 
 namespace nts
