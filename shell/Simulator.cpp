@@ -1,10 +1,10 @@
 //
 // EPITECH PROJECT, 2019
-// simulator.cpp
+// NanoTekSpcie
 // File description:
-// Gautier PLANCQ ~ simulator.cpp Source file
+// Simulator Shell
 //
- 
+
 #include <iostream>
 #include <csignal>
 #include <map>

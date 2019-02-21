@@ -1,9 +1,10 @@
 //
 // EPITECH PROJECT, 2019
-// simulator.hpp
+// NanoTekSpice
 // File description:
-// Gautier PLANCQ ~ simulator.hpp Include file
+// Simulator Shell Header
 //
+
 
 #if !defined(SIMULATOR_HPP_)
 #define SIMULATOR_HPP_
@@ -37,4 +38,4 @@ class Simulator
                 int display();
 };
 
-#endif // SIMULATOR_HPP_
+#endif

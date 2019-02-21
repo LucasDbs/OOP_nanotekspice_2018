@@ -1,9 +1,10 @@
 //
 // EPITECH PROJECT, 2019
-// errorManaging.hpp
+// NanoTekSpice
 // File description:
-// Gautier PLANCQ ~ errorManaging.hpp Include file
+// Error Managing Header
 //
+
  
 #if !defined(ERRORMANAGING_HPP_)
 #define ERRORMANAGING_HPP_
@@ -20,4 +21,4 @@ class ErrorManaging : public std::exception {
                 std::string _msg;
 };
 
-#endif // ERRORMANAGING_HPP_
+#endif
