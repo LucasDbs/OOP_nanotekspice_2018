@@ -7,7 +7,7 @@
 
 #include <iostream>
 #include "Gates.hpp"
-#include "4071.hpp"
+#include "components/4071.hpp"
 #include "Simulator.hpp"
 #include "PinComponent.hpp"
 

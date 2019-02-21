@@ -11,7 +11,7 @@ SRC	=
 
 OBJ	=	$(SRC:.c=.o)
 
-CPPFLAGS	=	-fpic -Wall -Wextra
+CPPFLAGS	=	-Wall -Wextra
 
 RM	=	rm -rf
 
