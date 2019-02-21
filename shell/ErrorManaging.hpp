@@ -1,6 +1,6 @@
 //
 // EPITECH PROJECT, 2019
-// NanoTekSpice
+// Georges Rached
 // File description:
 // Error Managing Header
 //

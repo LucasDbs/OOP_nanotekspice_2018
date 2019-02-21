@@ -2,7 +2,7 @@
 // EPITECH PROJECT, 2019
 // NanotekSpice
 // File description:
-// 2716 ehader
+// 2716 header
 //
 
 #include "IComponent.hpp"

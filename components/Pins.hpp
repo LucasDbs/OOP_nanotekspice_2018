@@ -2,7 +2,7 @@
 // EPITECH PROJECT, 2019
 // 4017.hpp
 // File description:
-// Sabri Ouaked
+// Lucas Duboisse
 //
 
 #if !defined(PINS_HPP)

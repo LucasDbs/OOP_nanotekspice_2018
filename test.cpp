@@ -2,7 +2,7 @@
 // EPITECH PROJECT, 2019
 // main.cpp
 // File description:
-// Gautier PLANCQ ~ main.cpp Source file
+// Lucas Duboisse
 //
 
 #include <iostream>

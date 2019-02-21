@@ -1,8 +1,8 @@
-        //
+//
 // EPITECH PROJECT, 2019
 // IComponent.hpp
 // File description:
-// Sabri Ouaked ~ IComponent.hpp Include file
+// Lucas Duboisse
 //
  
 #if !defined(ICOMPONENTS)

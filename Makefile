@@ -7,11 +7,12 @@
 
 CC	=	g++
 
-SRC	=
+SRC	=	main.cpp
+
 
 OBJ	=	$(SRC:.c=.o)
 
-CPPFLAGS	=	-Wall -Wextra
+CPPFLAGS	=	-Wall -Wextra -Icomponents/
 
 RM	=	rm -rf
 
