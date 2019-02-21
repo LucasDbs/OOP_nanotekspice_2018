@@ -5,6 +5,9 @@
 // 4017 header
 //
 
+#ifndef	_4017_HPP
+# define _4017_HPP_
+
 #include "IComponent.hpp"
 
 class CMP4017: public nts::IComponent
@@ -23,3 +26,5 @@ CMP4017::CMP4017(/* args */)
 CMP4017::~CMP4017()
 {
 }
+
+#endif
