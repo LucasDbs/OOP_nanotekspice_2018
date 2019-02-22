@@ -8,7 +8,7 @@
 #if !defined(PINS_HPP_)
 #define PINS_HPP_
 
-#include "IComponent.hpp"
+#include <iostream>
 
 enum ROLE
 {
@@ -27,8 +27,8 @@ class Pins
 
                 int getId();   
 
-                nts::Tristate getState();
-                void setState(nts::Tristate state);
+                bool getState();
+                void setState(bool state);
 
                 void setReference(Pins *Pin_next);
                 Pins *getReference();
@@ -36,13 +36,13 @@ class Pins
                 ROLE getRole();
                 void setRole(ROLE role);
 
-                void setGateId(size_t id);
-                size_t getGateId();
+                void setGateId(std::size_t id);
+                std::size_t getGateId();
 
                 void clock();
         private:
                 int _id;
-                nts::Tristate _state;
+                bool _state;
                 ROLE _role;
                 Pins *_ref;
                 size_t _gate_id;

@@ -1,28 +1,28 @@
 //
 // EPITECH PROJECT, 2019
-// NanotekSpice
+// NanoTekSpice
 // File description:
-// 4001 header
+// 4011 header
 //
 
-#include "../Include/2716.hpp"
+#include "../include/4011.hpp"
 
 nts::Tristate always_true(nts::Tristate *array)
 {
     return nts::Tristate::TRUE;
 }
 
-CMP4001::CMP4001(std::string name)
+CMP4011::CMP4011(std::string name)
 {
     int id = 1;
     int i = 0;
     Pins *tmp_in;
     Pins *tmp_out;
 
-    gates_array[0] = new Gates(2, 1, always_true);
-    gates_array[1] = new Gates(2, 1, always_true);
-    gates_array[2] = new Gates(2, 1, always_true);
-    gates_array[3] = new Gates(2, 1, always_true);
+    gates_array[0] = new Gates(2, 1, always_true, 1);
+    gates_array[1] = new Gates(2, 1, always_true, 2);
+    gates_array[2] = new Gates(2, 1, always_true, 3);
+    gates_array[3] = new Gates(2, 1, always_true, 4);
     
     tmp_in = gates_array[0]->getInputs();
     tmp_out = gates_array[0]->getOuputs();
@@ -57,27 +57,27 @@ CMP4001::CMP4001(std::string name)
     _pins_nb = 12;
 }
 
-std::string CMP4001::getName()
+std::string CMP4011::getName()
 {
     return _name;
 }
 
-Pins **CMP4001::getPins()
+Pins **CMP4011::getPins()
 {
     return pins_array;
 }
 
-Gates **CMP4001::getGates()
+Gates **CMP4011::getGates()
 {
     return gates_array;
 }
 
-int CMP4001::countPins()
+int CMP4011::countPins()
 {
     return _pins_nb;
 }
 
-int CMP4001::countGates()
+int CMP4011::countGates()
 {
     return _gates_nb;
 }

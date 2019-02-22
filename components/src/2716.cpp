@@ -5,7 +5,7 @@
 // 2716.cpp
 //
 
-#include "../Include/2716.hpp"
+#include "../include/2716.hpp"
 
 CMP2716::CMP2716()
 {

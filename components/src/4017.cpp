@@ -5,7 +5,7 @@
 // 4017 header
 //
 
-#include "../Include/4017.hpp"
+#include "../include/4017.hpp"
 
 CMP4017::CMP4017()
 {

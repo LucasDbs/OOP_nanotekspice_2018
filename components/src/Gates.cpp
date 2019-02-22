@@ -5,9 +5,9 @@
 // Lucas Duboisse
 //
 
-#include "../Include/Gates.hpp"
+#include "../include/Gates.hpp"
 
-Gates::Gates(int inputs_nb, int outputs_nb, nts::Tristate (*fct)(nts::Tristate *calc), size_t id)
+Gates::Gates(int inputs_nb, int outputs_nb, bool (*fct)(bool *calc), size_t id)
 {
         Pins inputs[inputs_nb];
         Pins outputs[outputs_nb];
@@ -30,21 +30,21 @@ Gates::~Gates()
 {
 }
 
-bool Gates::compute()
-{
-        nts::Tristate state_array[_inputs_nb];
-        nts::Tristate result;
+// bool Gates::compute()
+// {
+//         nts::Tristate state_array[_inputs_nb];
+//         nts::Tristate result;
 
-        for (int i = 0; i < _inputs_nb; i++) {
-                state_array[i] = _inputs[i].getState();
-        }
-        if (!state_array)
-                return false;
-        result = calc(state_array);
-        for (int i = 0; i < _outputs_nb; i++)
-                _outputs[i].setState(result);
-        return true;
-}
+//         for (int i = 0; i < _inputs_nb; i++) {
+//                 state_array[i] = _inputs[i].getState();
+//         }
+//         if (!state_array)
+//                 return false;
+//         result = calc(state_array);
+//         for (int i = 0; i < _outputs_nb; i++)
+//                 _outputs[i].setState(result);
+//         return true;
+// }
 
 Pins *Gates::getInputs()
 {

@@ -9,8 +9,6 @@
 #define _4008_HPP_
 
 #include "IComponent.hpp"
-#include "Gates.hpp"
-#include "Pins.hpp"
 
 class CMP4008: public nts::IComponent
 {
@@ -21,6 +19,9 @@ class CMP4008: public nts::IComponent
         Gates **getGates();
         int countPins();
         int countGates();
+        Pins *findPin(std::size_t id);
+        Gates *findGate(size_t id);
+        nts::Tristate compute(std::size_t pin = 1);
         void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin);
 
     private:

@@ -5,7 +5,7 @@
 // 4008 header
 //
 
-#include "../Include/4008.hpp"
+#include "../include/4008.hpp"
 
 nts::Tristate always_true(nts::Tristate *array)
 {
@@ -19,10 +19,10 @@ CMP4008::CMP4008(std::string name)
     Pins *tmp_in;
     Pins *tmp_out;
 
-    gates_array[0] = new Gates(2, 1, always_true);
-    gates_array[1] = new Gates(2, 1, always_true);
-    gates_array[2] = new Gates(2, 1, always_true);
-    gates_array[3] = new Gates(2, 1, always_true);
+    gates_array[0] = new Gates(2, 1, always_true, 1);
+    gates_array[1] = new Gates(2, 1, always_true, 2);
+    gates_array[2] = new Gates(2, 1, always_true, 3);
+    gates_array[3] = new Gates(2, 1, always_true, 4);
     
     tmp_in = gates_array[0]->getInputs();
     tmp_out = gates_array[0]->getOuputs();

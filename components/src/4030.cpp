@@ -1,28 +1,28 @@
 //
 // EPITECH PROJECT, 2019
-// NanoTekSpice
+// NanoTekSPice
 // File description:
-// 4011 header
+// 4030 header
 //
 
-#include "../Include/4011.hpp"
+#include "../include/4030.hpp"
 
 nts::Tristate always_true(nts::Tristate *array)
 {
     return nts::Tristate::TRUE;
 }
 
-CMP4011::CMP4011(std::string name)
+CMP4030::CMP4030(std::string name)
 {
     int id = 1;
     int i = 0;
     Pins *tmp_in;
     Pins *tmp_out;
 
-    gates_array[0] = new Gates(2, 1, always_true);
-    gates_array[1] = new Gates(2, 1, always_true);
-    gates_array[2] = new Gates(2, 1, always_true);
-    gates_array[3] = new Gates(2, 1, always_true);
+    gates_array[0] = new Gates(2, 1, always_true, 1);
+    gates_array[1] = new Gates(2, 1, always_true, 2);
+    gates_array[2] = new Gates(2, 1, always_true, 3);
+    gates_array[3] = new Gates(2, 1, always_true, 4);
     
     tmp_in = gates_array[0]->getInputs();
     tmp_out = gates_array[0]->getOuputs();
@@ -41,43 +41,43 @@ CMP4011::CMP4011(std::string name)
     tmp_in = gates_array[2]->getInputs();
     tmp_out = gates_array[2]->getOuputs();
 
-    pins_array[6] = new Pins(8, ROLE::OUT, &(tmp_in[0]));
-    pins_array[7] = new Pins(9, ROLE::OUT, &(tmp_in[1]));
-    pins_array[8] = new Pins(10, ROLE::IN, &(tmp_out[0]));
+    pins_array[6] = new Pins(7, ROLE::OUT, &(tmp_in[0]));
+    pins_array[7] = new Pins(8, ROLE::OUT, &(tmp_in[1]));
+    pins_array[8] = new Pins(9, ROLE::IN, &(tmp_out[0]));
 
     tmp_in = gates_array[3]->getInputs();
     tmp_out = gates_array[3]->getOuputs();
 
-    pins_array[9] = new Pins(11, ROLE::IN, &(tmp_out[0]));
-    pins_array[10] = new Pins(12, ROLE::OUT, &(tmp_in[1]));
-    pins_array[11] = new Pins(13, ROLE::OUT, &(tmp_in[0]));
+    pins_array[9] = new Pins(10, ROLE::IN, &(tmp_out[0]));
+    pins_array[10] = new Pins(11, ROLE::OUT, &(tmp_in[1]));
+    pins_array[11] = new Pins(12, ROLE::OUT, &(tmp_in[0]));
 
     _name = name;
     _gates_nb = 4;
     _pins_nb = 12;
 }
 
-std::string CMP4011::getName()
+std::string CMP4030::getName()
 {
     return _name;
 }
 
-Pins **CMP4011::getPins()
+Pins **CMP4030::getPins()
 {
     return pins_array;
 }
 
-Gates **CMP4011::getGates()
+Gates **CMP4030::getGates()
 {
     return gates_array;
 }
 
-int CMP4011::countPins()
+int CMP4030::countPins()
 {
     return _pins_nb;
 }
 
-int CMP4011::countGates()
+int CMP4030::countGates()
 {
     return _gates_nb;
 }

@@ -6,20 +6,21 @@
 //
 
 #include <iostream>
-#include "Gates.hpp"
-#include "4071.hpp"
-#include "Simulator.hpp"
-#include "PinComponent.hpp"
+#include "components/include/Gates.hpp"
+#include "components/include/4071.hpp"
+#include "shell/include/Shell.hpp"
+// #include "PinComponent.hpp"
 
-int main(int argc, char const *argv[])
+int main()
 {
+        return 0;
        // CMP4071 test("carte test");
-        if (argc < 2) {
-                std::cerr << "No filename specified" << std::endl;
-                return (84);
-        }
+        // if (argc < 2) {
+        //         std::cerr << "No filename specified" << std::endl;
+        //         return (84);
+        // }
 
-        Simulator sim(argv[1]);
-        //std::cout << "Le nom de la carte est: " <<  test.getName();
-        return sim.launch();;
+        // Shell sim(argv[1]);
+        // //std::cout << "Le nom de la carte est: " <<  test.getName();
+        // return sim.launch();;
 }

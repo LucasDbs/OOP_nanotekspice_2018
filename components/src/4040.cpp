@@ -5,7 +5,7 @@
 // 4040 header
 //
 
-#include "../Include/4040.hpp"
+#include "../include/4040.hpp"
 
 CMP4040::CMP4040(/* args */)
 {

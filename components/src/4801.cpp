@@ -5,7 +5,7 @@
 // 4801 header
 //
 
-#include "../Include/4801.hpp"
+#include "../include/4801.hpp"
 
 CMP4801::CMP4801()
 {

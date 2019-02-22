@@ -5,13 +5,13 @@
 // Lucas Duboisse
 //
 
-#include "../Include/Pins.hpp"
+#include "../include/Pins.hpp"
 
 Pins::Pins()
 {
         _id = 0;
         _role = ROLE::IN;
-        _state = nts::Tristate::UNDEFINED;
+        _state = (-true);
         _ref = NULL;
         _gate_id = -1;
 }
@@ -20,7 +20,7 @@ Pins::Pins(int id, ROLE role)
 {
         _id = id;
         _role = role;
-        _state = nts::Tristate::UNDEFINED;
+        _state = (-true);
         _ref = NULL;
         _gate_id = -1;
 }
@@ -29,7 +29,7 @@ Pins::Pins(int id, ROLE role, Pins *Pin_next)
 {
         _id = id;
         _role = role;
-        _state = nts::Tristate::UNDEFINED;
+        _state = (-true);
         _ref = NULL;
         Pin_next->_ref = this;
         _gate_id = -1;
@@ -42,12 +42,12 @@ Pins::~Pins()
 void Pins::clock()
 {
         if (_role != ROLE::CLOCK) {
-                perror("error:clock Current Pin is not a clock\n");
+                // perror("error:clock Current Pin is not a clock\n");
                 return;
-        } else if (_state == nts::Tristate::FALSE) {
-                _state == nts::Tristate::TRUE;
+        } else if (_state == false) {
+                _state = true;
         } else { 
-                _state == nts::Tristate::FALSE;
+                _state = false;
         }
 }
 
@@ -56,12 +56,12 @@ int Pins::getId()
         return _id;
 }    
 
-nts::Tristate Pins::getState()
+bool Pins::getState()
 {
         return _state;
 }
 
-void Pins::setState(nts::Tristate state)
+void Pins::setState(bool state)
 {
         _state = state;
 }

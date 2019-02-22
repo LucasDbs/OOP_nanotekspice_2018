@@ -5,7 +5,7 @@
 // 4094 header
 //
 
-#include "../Include/4094.hpp"
+#include "../include/4094.hpp"
 
 CMP4094::CMP4094()
 {

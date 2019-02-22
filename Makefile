@@ -5,28 +5,23 @@
 ## Makefile
 ##
 
-CC	=	g++
+NAME	=	nanotekspice
 
-SRC	=	main.cpp
+SRC	=	main.cpp		\
 
+OBJ	=	$(SRC:.cpp=.o)
 
-OBJ	=	$(SRC:.c=.o)
+CFLAGS	=	-g -W -Wall -Wextra
 
-CPPFLAGS	=	-Wall -Wextra -Icomponents/
+all:		$(NAME)
 
-RM	=	rm -rf
-
-all:	$(NAME)
-
-$(NAME):	$(OBJ)
-		$(CC) -o $(NAME) $(OBJ) $(CPPFLAGS)
+$(NAME):
+		g++ -o $(NAME) $(SRC) $(CFLAGS)
 
 clean:
-		$(RM) $(OBJ)
+		rm -f $(OBJ)
 
-fclean:	clean
-		$(RM) $(OBJ)
+fclean:		clean
+		rm -f $(NAME)
 
 re:		fclean all
-
-.PHONY:	all re clean fclean
