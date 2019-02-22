@@ -5,23 +5,35 @@
 ## Makefile
 ##
 
+CC	=	g++ -std=c++11
+
+SRC	=	main.cpp			\
+		shell/src/Shell.cpp		\
+		components/src/Gates.cpp			\
+		shell/src/Parsing.cpp			\
+		components/src/Pins.cpp			\
+		components/src/PinComponent.cpp		\
+
+OBJ	=	$(SRC:.c=.o)
+
+CFLAGS	=	#-Wall -Wextra 
+
+LDFLAGS	=	-g
+
+INCLUDE	=	-Iinclude
+
 NAME	=	nanotekspice
 
-SRC	=	main.cpp		\
-
-OBJ	=	$(SRC:.cpp=.o)
-
-CFLAGS	=	-g -W -Wall -Wextra
+RM	=	rm -rf
 
 all:		$(NAME)
 
-$(NAME):
-		g++ -o $(NAME) $(SRC) $(CFLAGS)
+$(NAME):	$(OBJ)
+		$(CC) $(INCLUDE) -o $(NAME) $(OBJ) $(CFLAGS) $(LDFLAGS)
 
-clean:
-		rm -f $(OBJ)
+fclean:
+		$(RM) $(NAME)
 
-fclean:		clean
-		rm -f $(NAME)
+re:	fclean all
 
-re:		fclean all
+.PHONY:	all re clean fclean

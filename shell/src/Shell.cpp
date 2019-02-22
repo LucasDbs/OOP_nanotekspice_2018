@@ -1,50 +1,55 @@
 //
 // EPITECH PROJECT, 2019
-// NanoTekSpcie
+// NanoTekSpice
 // File description:
-// Shell Shell
+// Shell 
 //
 
 #include <iostream>
 #include <csignal>
 #include <map>
-#include "Shell.hpp"
+#include "../include/ErrorManaging.hpp"
+#include "../include/Parsing.hpp"
+#include "../include/Shell.hpp"
 
 bool LOOP = false;
 
-Shell::Shell(const std::string &filename) : _exit(false)
+Simulator::Simulator(const std::string &filename) : _exit(false)
 {
         Parsing parsed(filename);
 
         parsed.parseFile();
-        _inputs = parsed.getInputs();
-        _outputs = parsed.getOutputs();
-        _components = parsed.getComponents();
-        _command["simulate"] = &Shell::simulate;
-        _command["loop"] = &Shell::loop;
-        _command["dump"] = &Shell::dump;
-        _command["display"] = &Shell::display;
-        _command["exit"] = &Shell::exit;
-        _command["changeValue"] = &Shell::changeValue;
+        this->_inputs = parsed.getInputs();
+        this->_outputs = parsed.getOutputs();
+        this->_components = parsed.getComponents();
+        this->_inputs = parsed.getInputs();
+        this->_outputs = parsed.getOutputs();
+        this->_components = parsed.getComponents();
+        this->_command["simulate"] = &Simulator::simulate;
+        this->_command["loop"] = &Simulator::loop;
+        this->_command["dump"] = &Simulator::dump;
+        this->_command["display"] = &Simulator::display;
+        this->_command["exit"] = &Simulator::exit;
+        this->_command["changeValue"] = &Simulator::changeValue;
 }
 
-int Shell::launch()
+int Simulator::launch()
 {
-        while (_exit == false) {
-                prompt();
-                if (exec_command() == 84)
+        while (this->_exit == false) {
+                this->prompt();
+                if (this->exec_command() == 84)
                         return (84); 
         }
         return 0;
 }
 
-int Shell::simulate()
+int Simulator::simulate()
 {
         std::cout << "simulate" << std::endl;
         return 0;
 }
 
-int Shell::changeValue()
+int Simulator::changeValue()
 {
         std::string input;
         std::string value;
@@ -60,27 +65,27 @@ int Shell::changeValue()
         return 0;
 }
 
-void Shell::exit_loop(int signal)
+void Simulator::exit_loop(int signal)
 {
         std::signal(SIGINT, SIG_DFL);
         LOOP = false;
 }
 
-int Shell::loop()
+int Simulator::loop()
 {
-        std::signal(SIGINT, &Shell::exit_loop);
+        std::signal(SIGINT, &Simulator::exit_loop);
         LOOP = true;
         while (LOOP)
                 std::cout << "loop" << std::endl;
         return 0;
 }
 
-int Shell::exec_command()
+int Simulator::exec_command()
 {
         auto command_fct = _command.find(_lastCommand);
 
         if (command_fct != _command.end())
-                return (*(command_fct->second))();
+                return (this->*(command_fct->second))();
         try {
                 return changeValue();
         } catch (ErrorManaging &e) {
@@ -90,7 +95,7 @@ int Shell::exec_command()
         return (0);
 }
 
-void Shell::prompt()
+void Simulator::prompt()
 {
         std::string result;
 
@@ -100,18 +105,18 @@ void Shell::prompt()
               _lastCommand = "exit";
 }
 
-int Shell::dump()
+int Simulator::dump()
 {
         std::cout << "dump" << std::endl;
 }
 
-int Shell::display()
+int Simulator::display()
 {
         std::cout << "display" << std::endl;
 }
 
-int Shell::exit()
+int Simulator::exit()
 {
-        _exit = true;
+        this->_exit = true;
         return (0);
 }
