@@ -8,6 +8,7 @@
 #include <string>
 #include "../include/4081.hpp"
 #include "../include/Output.hpp"
+#include "../../shell/include/ErrorManaging.hpp"
 
 CMP4081::CMP4081(std::string name)
 {
@@ -51,6 +52,7 @@ void CMP4081::setLink(std::size_t pin, nts::IComponent &other, std::size_t other
                 _links[pin] = std::make_pair(&other, otherPin);
                 other.setLink(otherPin, *this, pin);
         }
+        // throw ErrorManaging("")
 }
 
 nts::Tristate CMP4081::compute(std::size_t pin)

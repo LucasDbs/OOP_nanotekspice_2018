@@ -13,15 +13,15 @@
 
 int main()
 {
-        int a = 0;
-        int b = 1;
-        try {
-                if (a == 0)
-                        throw ErrorManaging("ERROR: a = 0");
-        }
-        catch (std::exception &e) {
-                std::cout << e.what() << std::endl;
-        }
+        // int a = 0;
+        // // int b = 1;
+        // try {
+        //         if (a == 0)
+        //                 throw ErrorManaging("ERROR: a = 0");
+        // }
+        // catch (std::exception &e) {
+        //         std::cout << e.what() << std::endl;
+        // }
         componentFactory fact;
         auto *CMP4081 = fact.createComponent("CMP4081", "ma carte lel");
         auto *InputA = fact.createComponent("Input", "1");
@@ -31,9 +31,7 @@ int main()
 
         CMP4081->setLink(1, *InputA, 1);
         CMP4081->setLink(2, *InputB, 1);
-        CMP4081->setLink(3, *CMP4081, 4);
-        CMP4081->setLink(5, *InputC, 1);
-        CMP4081->setLink(6, *Output, 1);
+        CMP4081->setLink(3, *Output, 1);
 
         std::cout << Output->compute(1) << std::endl;
 
