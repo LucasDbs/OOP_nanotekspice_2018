@@ -1,8 +1,8 @@
 //
 // EPITECH PROJECT, 2019
-// NanoTekSpice
+// Lucas Duboisse
 // File description:
-// Error handling
+// ErrorManaging.hpp
 //
  
 #if !defined(ERRORMANAGING_HPP_)
@@ -13,9 +13,9 @@
 
 class ErrorManaging : public std::exception {
         public:
-                ErrorManaging(const std::string &msg = "Unknown error") noexcept : _msg(msg) {};
-                ~ErrorManaging(){};
-                const char *what() const noexcept override { return _msg.data(); }
+                ErrorManaging(const std::string &str = "Unknown error") noexcept;
+                virtual ~ErrorManaging();
+                virtual const char *what() const noexcept;
         private:
                 std::string _msg;
 };

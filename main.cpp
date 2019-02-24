@@ -9,9 +9,19 @@
 #include "components/include/4081.hpp"
 #include "shell/include/Shell.hpp"
 #include "factory/componentFactory.hpp"
+#include "shell/include/ErrorManaging.hpp"
 
 int main()
 {
+        int a = 0;
+        int b = 1;
+        try {
+                if (a == 0)
+                        throw ErrorManaging("ERROR: a = 0");
+        }
+        catch (std::exception &e) {
+                std::cout << e.what() << std::endl;
+        }
         componentFactory fact;
         auto *CMP4081 = fact.createComponent("CMP4081", "ma carte lel");
         auto *InputA = fact.createComponent("Input", "1");

@@ -12,6 +12,7 @@ SRC	=	main.cpp			\
 		components/src/4081.cpp		\
 		components/src/Input.cpp	\
 		components/src/Output.cpp	\
+		shell/src/ErrorManaging.cpp	\
 		# components/src/4008.cpp	\
 		# components/src/4011.cpp	\
 		# components/src/4030.cpp	\
