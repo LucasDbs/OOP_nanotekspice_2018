@@ -13,7 +13,7 @@
 
 class ErrorManaging : public std::exception {
         public:
-                ErrorManaging(const std::string &str = "Unknown error") noexcept;
+                ErrorManaging(const std::string &str) noexcept;
                 virtual ~ErrorManaging();
                 virtual const char *what() const noexcept;
         private:

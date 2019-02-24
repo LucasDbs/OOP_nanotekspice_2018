@@ -29,11 +29,18 @@ int main()
         auto *InputC = fact.createComponent("Input", "0");
         auto *Output = fact.createComponent("Output", "lol");
 
-        CMP4081->setLink(1, *InputA, 1);
-        CMP4081->setLink(2, *InputB, 1);
-        CMP4081->setLink(3, *Output, 1);
+        try {
+                CMP4081->setLink(1, *InputA, 1);
+                CMP4081->setLink(3, *InputB, 1);
+                CMP4081->setLink(2, *Output, 1);
 
-        std::cout << Output->compute(1) << std::endl;
+                // std::cout << Output->compute(1) << std::endl;
+                std::cout << InputA->getName() << std::endl;
+        }
+        catch (std::exception &e) {
+                std::cerr << e.what() << std::endl;
+        }
+
 
         delete CMP4081;
         delete InputA;

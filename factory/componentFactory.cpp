@@ -22,7 +22,7 @@ componentFactory::componentFactory()
         // m_map.insert(std::make_pair("CMP4081", [&] (const std::string value) { return new CMP4081(value); }));
         m_map["CMP4081"] = [&] (const std::string value) { return new CMP4081(value); };
         m_map["Input"] = [&] (const std::string value) { return new Input(value); };
-        m_map["Output"] = [&] (const std::string value) { (void)value; return new Output; };
+        m_map["Output"] = [&] (const std::string value) { (void)value; return new Output(value); };
         // // m_map.insert(std::make_pair("CMP4094", [&] (const std::string value) { return new CMP4094(value); }));
         // // m_map.insert(std::make_pair("CMP4514", [&] (const std::string value) { return new CMP4514(value); }));
         // // m_map.insert(std::make_pair("CMP4801", [&] (const std::string value) { return new CMP4801(value); }));

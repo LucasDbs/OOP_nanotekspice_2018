@@ -14,15 +14,17 @@
 class Output: public nts::IComponent
 {
         public:
-                Output();
+                Output(const std::string &name);
                 virtual ~Output();
 
                 nts::Tristate getState() const;
+                std::string getName() const;
                 // void setState(std::string &state);
 
                 nts::Tristate compute(std::size_t pin = 1);
                 void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin);
         private:
+                std::string _name;
                 nts::Tristate _state;
                 std::map<std::size_t, std::pair<nts::IComponent *, size_t> > _links;
 };
