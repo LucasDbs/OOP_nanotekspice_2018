@@ -21,7 +21,7 @@ SRC	=	main.cpp			\
 
 OBJ	=	$(SRC:.cpp=.o)
 
-CFLAGS	=	-g -W -Wall -Wextra
+CFLAGS	=	-g -W -Wall -Wextra -std=c++11
 
 all:		$(NAME)
 

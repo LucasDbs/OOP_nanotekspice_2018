@@ -5,81 +5,97 @@
 // 4071 header
 //
 
+#include <string>
 #include "../include/4071.hpp"
-
-nts::Tristate always_true(nts::Tristate *array)
-{
-    return nts::Tristate::TRUE;
-}
+#include "../include/Output.hpp"
+#include "../../shell/include/ErrorManaging.hpp"
 
 CMP4071::CMP4071(std::string name)
 {
-    int id = 1;
-    int i = 0;
-    Pins *tmp_in;
-    Pins *tmp_out;
+        _name = name;
+        for(std::size_t i = 1; i <= 14; i++)
+                _links[i] = std::make_pair(nullptr, 0);
 
-    gates_array[0] = new Gates(2, 1, always_true, 1);
-    gates_array[1] = new Gates(2, 1, always_true, 2);
-    gates_array[2] = new Gates(2, 1, always_true, 3);
-    gates_array[3] = new Gates(2, 1, always_true, 4);
-    
-    tmp_in = gates_array[0]->getInputs();
-    tmp_out = gates_array[0]->getOuputs();
-    
-    pins_array[0] = new Pins(1, ROLE::OUT, &(tmp_in[1]));
-    pins_array[1] = new Pins(2, ROLE::OUT, &(tmp_in[0]));
-    pins_array[2] = new Pins(3, ROLE::IN, &(tmp_out[0]));
+        _pin_func[1] = std::bind(&CMP4071::inputPin, this, std::placeholders::_1);
+        _pin_func[2] = std::bind(&CMP4071::inputPin, this, std::placeholders::_1);
+        _pin_func[5] = std::bind(&CMP4071::inputPin, this, std::placeholders::_1);
+        _pin_func[6] = std::bind(&CMP4071::inputPin, this, std::placeholders::_1);
+        _pin_func[8] = std::bind(&CMP4071::inputPin, this, std::placeholders::_1);
+        _pin_func[9] = std::bind(&CMP4071::inputPin, this, std::placeholders::_1);
+        _pin_func[12] = std::bind(&CMP4071::inputPin, this, std::placeholders::_1);
+        _pin_func[13] = std::bind(&CMP4071::inputPin, this, std::placeholders::_1);
 
-    tmp_in = gates_array[1]->getInputs();
-    tmp_out = gates_array[1]->getOuputs();
+        _pin_func[3] = std::bind(&CMP4071::outputPin, this, std::placeholders::_1);
+        _pin_func[4] = std::bind(&CMP4071::outputPin, this, std::placeholders::_1);
+        _pin_func[10] = std::bind(&CMP4071::outputPin, this, std::placeholders::_1);
+        _pin_func[11] = std::bind(&CMP4071::outputPin, this, std::placeholders::_1);
 
-    pins_array[3] = new Pins(4, ROLE::IN, &(tmp_out[0]));
-    pins_array[4] = new Pins(5, ROLE::OUT, &(tmp_in[0]));
-    pins_array[5] = new Pins(6, ROLE::OUT, &(tmp_in[1]));
 
-    tmp_in = gates_array[2]->getInputs();
-    tmp_out = gates_array[2]->getOuputs();
-
-    pins_array[6] = new Pins(8, ROLE::OUT, &(tmp_in[0]));
-    pins_array[7] = new Pins(9, ROLE::OUT, &(tmp_in[1]));
-    pins_array[8] = new Pins(10, ROLE::IN, &(tmp_out[0]));
-
-    tmp_in = gates_array[3]->getInputs();
-    tmp_out = gates_array[3]->getOuputs();
-
-    pins_array[9] = new Pins(11, ROLE::IN, &(tmp_out[0]));
-    pins_array[10] = new Pins(12, ROLE::OUT, &(tmp_in[1]));
-    pins_array[11] = new Pins(13, ROLE::OUT, &(tmp_in[0]));
-
-    _name = name;
-    _gates_nb = 4;
-    _pins_nb = 12;
+        _gates[3] = std::make_pair(1, 2);
+        _gates[4] = std::make_pair(5, 6);
+        _gates[10] = std::make_pair(8, 9);
+        _gates[11] = std::make_pair(12, 13);
 }
 
-std::string CMP4071::getName()
+CMP4071::~CMP4071()
 {
-    return _name;
 }
 
-Pins **CMP4071::getPins()
+std::string CMP4071::getName() const
 {
-    return pins_array;
+        return _name;
 }
 
-Gates **CMP4071::getGates()
+void CMP4071::setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin)
 {
-    return gates_array;
+        if (_links.find(pin) != _links.end() && _links[pin].first == nullptr) {
+                _links[pin] = std::make_pair(&other, otherPin);
+                other.setLink(otherPin, *this, pin);
+        }
+        // throw ErrorManaging("")
 }
 
-int CMP4071::countPins()
+nts::Tristate CMP4071::compute(std::size_t pin)
 {
-    return _pins_nb;
+        if (_pin_func.find(pin) != _pin_func.end()) {
+                try {
+                        return _pin_func[pin](pin);
+                }
+                catch(const std::exception &e) {
+                        std::cerr << e.what() << '\n';
+                }
+                
+        }
+        return nts::Tristate::UNDEFINED;
 }
 
-int CMP4071::countGates()
+nts::Tristate CMP4071::inputPin(std::size_t pin)
 {
-    return _gates_nb;
+        if (_links[pin].first) {
+                if (static_cast<Output *>(_links[pin].first))
+                        return nts::Tristate::UNDEFINED;
+                return _links[pin].first->compute(_links[pin].second);
+        }
+        return nts::Tristate::UNDEFINED;        
 }
 
-// Set Link a implementer
+nts::Tristate CMP4071::outputPin(std::size_t pin)
+{
+        nts::Tristate res = nts::Tristate::UNDEFINED;
+        std::size_t pinA = 0;
+        std::size_t pinB = 0;
+
+        if (_gates.find(pin) == _gates.end())
+                return nts::Tristate::UNDEFINED;
+        pinA = _gates[pin].first;
+        pinB = _gates[pin].second;
+        if (_links[pinA].first && _links[pinB].first)
+                res = andCompute(_links[pinA].first->compute(_links[pinA].second),
+                        _links[pinB].first->compute(_links[pinB].second));
+        return res;        
+}
+
+nts::Tristate CMP4071::andCompute(std::size_t a, std::size_t b) const
+{
+        return static_cast<nts::Tristate>(a && b);
+}
