@@ -48,11 +48,14 @@ std::string CMP4071::getName() const
 
 void CMP4071::setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin)
 {
-        if (_links.find(pin) != _links.end() && _links[pin].first == nullptr) {
-                _links[pin] = std::make_pair(&other, otherPin);
-                other.setLink(otherPin, *this, pin);
+        if (_links.find(pin) != _links.end()) {
+                if (_links[pin].first == nullptr) {
+                        _links[pin] = std::make_pair(&other, otherPin);
+                        other.setLink(otherPin, *this, pin);
+                }
+                return ;
         }
-        // throw ErrorManaging("")
+        throw ErrorManaging("Error in CMP4081: Pin " + std::to_string(pin) + " doesn't exist");
 }
 
 nts::Tristate CMP4071::compute(std::size_t pin)
@@ -63,19 +66,24 @@ nts::Tristate CMP4071::compute(std::size_t pin)
                 }
                 catch(const std::exception &e) {
                         std::cerr << e.what() << '\n';
+                        return nts::Tristate::UNDEFINED;
                 }
                 
         }
+        throw ErrorManaging("Error in CMP4081: Pin " + std::to_string(pin) + " doesn't exist");
         return nts::Tristate::UNDEFINED;
 }
 
 nts::Tristate CMP4071::inputPin(std::size_t pin)
 {
         if (_links[pin].first) {
-                if (static_cast<Output *>(_links[pin].first))
+                if (static_cast<Output *>(_links[pin].first)) {
+                        throw ErrorManaging("Error in CMP4081: Input pin " + std::to_string(pin) + " linked to Output");
                         return nts::Tristate::UNDEFINED;
+                }
                 return _links[pin].first->compute(_links[pin].second);
         }
+        throw ErrorManaging("Error in CMP4081: Pin " + std::to_string(pin) + " isn't linked to anything");
         return nts::Tristate::UNDEFINED;        
 }
 
@@ -85,14 +93,15 @@ nts::Tristate CMP4071::outputPin(std::size_t pin)
         std::size_t pinA = 0;
         std::size_t pinB = 0;
 
-        if (_gates.find(pin) == _gates.end())
-                return nts::Tristate::UNDEFINED;
-        pinA = _gates[pin].first;
-        pinB = _gates[pin].second;
-        if (_links[pinA].first && _links[pinB].first)
-                res = andCompute(_links[pinA].first->compute(_links[pinA].second),
-                        _links[pinB].first->compute(_links[pinB].second));
-        return res;        
+        if (_gates.find(pin) != _gates.end()) {
+                pinA = _gates[pin].first;
+                pinB = _gates[pin].second;
+                if (_links[pinA].first && _links[pinB].first)
+                        res = andCompute(_links[pinA].first->compute(_links[pinA].second),
+                                _links[pinB].first->compute(_links[pinB].second));
+                return res;
+        }
+        throw ErrorManaging("Error in CMP4081: Pin " + std::to_string(pin) + " has no gates");      
 }
 
 nts::Tristate CMP4071::andCompute(std::size_t a, std::size_t b) const
