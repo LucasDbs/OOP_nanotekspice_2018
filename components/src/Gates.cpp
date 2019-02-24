@@ -7,7 +7,7 @@
 
 #include "../include/Gates.hpp"
 
-Gates::Gates(int inputs_nb, int outputs_nb, bool (*fct)(bool *calc), size_t id)
+Gates::Gates(int inputs_nb, int outputs_nb, nts::Tristate (*fct)(nts::Tristate *calc), size_t id)
 {
         Pins inputs[inputs_nb];
         Pins outputs[outputs_nb];
@@ -30,7 +30,7 @@ Gates::~Gates()
 {
 }
 
-// bool Gates::compute()
+// nts::Tristate Gates::compute()
 // {
 //         nts::Tristate state_array[_inputs_nb];
 //         nts::Tristate result;

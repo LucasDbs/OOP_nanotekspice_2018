@@ -2,29 +2,28 @@
 // EPITECH PROJECT, 2019
 // Lucas Duboisse
 // File description:
-// Input.hpp
+// True.hpp
 //
 
-#if !defined(INPUT_HPP_)
-#define INPUT_HPP_
+#if !defined(TRUE_HPP_)
+#define TRUE_HPP_
 
 #include <map>
 #include "IComponent.hpp"
 
-class Input: public nts::IComponent
+class True: public nts::IComponent
 {
         public:
-                Input(const std::string &state);
-                virtual ~Input();
+                True();
+                virtual ~True();
 
                 nts::Tristate getState() const;
-                void setState(std::string &state);
-
                 nts::Tristate compute(std::size_t pin = 1);
                 void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin);
+
         private:
                 nts::Tristate _state;
                 std::map<std::size_t, std::pair<nts::IComponent *, size_t> > _links;
 };
 
-#endif // INPUT_HPP_
+#endif // TRUE_HPP_

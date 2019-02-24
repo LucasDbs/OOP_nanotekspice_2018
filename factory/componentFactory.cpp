@@ -9,37 +9,23 @@
 
 componentFactory::componentFactory()
 {
-        m_map = {
-                "CMP2716", [&] (const std::string value) { return new CMP2716(value); },
-                "CMP4001", [&] (const std::string value) { return new CMP4001(value); },
-                "CMP4008", [&] (const std::string value) { return new CMP4008(value); },
-                "CMP4011", [&] (const std::string value) { return new CMP4011(value); },
-                "CMP4013", [&] (const std::string value) { return new CMP4013(value); },
-                "CMP4017", [&] (const std::string value) { return new CMP4017(value); },
-                "CMP4030", [&] (const std::string value) { return new CMP4030(value); },
-                "CMP4040", [&] (const std::string value) { return new CMP4040(value); },
-                "CMP4069", [&] (const std::string value) { return new CMP4069(value); },
-                "CMP4071", [&] (const std::string value) { return new CMP4071(value); },
-                "CMP4081", [&] (const std::string value) { return new CMP4081(value); },
-                "CMP4094", [&] (const std::string value) { return new CMP4094(value); },
-                "CMP4514", [&] (const std::string value) { return new CMP4514(value); },
-                "CMP4801", [&] (const std::string value) { return new CMP4801(value); }
-        };
-
         // m_map.insert(std::make_pair("CMP2716", [&] (const std::string value) { return new CMP2716(value); }));
         // m_map.insert(std::make_pair("CMP4001", [&] (const std::string value) { return new CMP4001(value); }));
         // m_map.insert(std::make_pair("CMP4008", [&] (const std::string value) { return new CMP4008(value); }));
         // m_map.insert(std::make_pair("CMP4011", [&] (const std::string value) { return new CMP4011(value); }));
-        // m_map.insert(std::make_pair("CMP4013", [&] (const std::string value) { return new CMP4013(value); }));
-        // m_map.insert(std::make_pair("CMP4017", [&] (const std::string value) { return new CMP4017(value); }));
+        // // m_map.insert(std::make_pair("CMP4013", [&] (const std::string value) { return new CMP4013(value); }));
+        // // m_map.insert(std::make_pair("CMP4017", [&] (const std::string value) { return new CMP4017(value); }));
         // m_map.insert(std::make_pair("CMP4030", [&] (const std::string value) { return new CMP4030(value); }));
-        // m_map.insert(std::make_pair("CMP4040", [&] (const std::string value) { return new CMP4040(value); }));
-        // m_map.insert(std::make_pair("CMP4069", [&] (const std::string value) { return new CMP4069(value); }));
+        // // m_map.insert(std::make_pair("CMP4040", [&] (const std::string value) { return new CMP4040(value); }));
+        // // m_map.insert(std::make_pair("CMP4069", [&] (const std::string value) { return new CMP4069(value); }));
         // m_map.insert(std::make_pair("CMP4071", [&] (const std::string value) { return new CMP4071(value); }));
         // m_map.insert(std::make_pair("CMP4081", [&] (const std::string value) { return new CMP4081(value); }));
-        // m_map.insert(std::make_pair("CMP4094", [&] (const std::string value) { return new CMP4094(value); }));
-        // m_map.insert(std::make_pair("CMP4514", [&] (const std::string value) { return new CMP4514(value); }));
-        // m_map.insert(std::make_pair("CMP4801", [&] (const std::string value) { return new CMP4801(value); }));
+        m_map["CMP4081"] = [&] (const std::string value) { return new CMP4081(value); };
+        m_map["Input"] = [&] (const std::string value) { return new Input(value); };
+        m_map["Output"] = [&] (const std::string value) { (void)value; return new Output; };
+        // // m_map.insert(std::make_pair("CMP4094", [&] (const std::string value) { return new CMP4094(value); }));
+        // // m_map.insert(std::make_pair("CMP4514", [&] (const std::string value) { return new CMP4514(value); }));
+        // // m_map.insert(std::make_pair("CMP4801", [&] (const std::string value) { return new CMP4801(value); }));
 }
 
 nts::IComponent *componentFactory::createComponent(const std::string &type, const std::string &value)

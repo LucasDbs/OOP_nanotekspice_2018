@@ -2,12 +2,12 @@
 // EPITECH PROJECT, 2019
 // Lucas Duboisse
 // File description:
-// Input.hpp
+// Clock.cpp
 //
 
-#include "../include/Input.hpp"
+#include "../include/Clock.hpp"
 
-Input::Input(const std::string &state)
+Clock::Clock(const std::string &state)
 {
         _links[1] = std::make_pair(nullptr, 0);
         if (state == "0")
@@ -18,16 +18,16 @@ Input::Input(const std::string &state)
                 _state = nts::Tristate::UNDEFINED;
 }
 
-Input::~Input()
+Clock::~Clock()
 {
 }
 
-nts::Tristate Input::getState() const
+nts::Tristate Clock::getState() const
 {
         return _state;
 }
 
-void Input::setState(std::string &state)
+void Clock::setState(std::string &state)
 {
         if (state == "0")
                 _state = nts::Tristate::FALSE;
@@ -35,7 +35,7 @@ void Input::setState(std::string &state)
                 _state = nts::Tristate::TRUE;
 }
 
-void Input::setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin)
+void Clock::setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin)
 {
         if (_links.find(pin) != _links.end() && _links[pin].first == nullptr) {
                 _links[pin] = std::make_pair(&other, otherPin);
@@ -43,9 +43,21 @@ void Input::setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPi
         }
 }
 
-nts::Tristate Input::compute(std::size_t pin)
+void Clock::changeState()
 {
-        if (_links.find(pin) != _links.end())
-                return _state;
+        if (_state == nts::Tristate::FALSE)
+                _state = nts::Tristate::TRUE;
+        else if (_state == nts::Tristate::TRUE)
+                _state = nts::Tristate::FALSE;
+}
+
+nts::Tristate Clock::compute(std::size_t pin)
+{
+        nts::Tristate to_return = _state;
+
+        if (_links.find(pin) != _links.end()) {
+                changeState();
+                return to_return;
+        }
         return nts::Tristate::UNDEFINED;
 }

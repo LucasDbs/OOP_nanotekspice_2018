@@ -5,47 +5,48 @@
 // Lucas Duboisse
 //
 
-#if !defined(PINS_HPP_)
-#define PINS_HPP_
+// #if !defined(PINS_HPP_)
+// #define PINS_HPP_
 
-#include <iostream>
+// #include <iostream>
+// #include "IComponent.hpp"
 
-enum ROLE
-{
-        OUT,
-        IN,
-        CLOCK
-};
+// enum ROLE
+// {
+//         OUT,
+//         IN,
+//         CLOCK
+// };
 
-class Pins
-{
-        public:
-                Pins(int id, ROLE role, Pins *ref);
-                Pins(int id, ROLE role);
-                Pins();
-                ~Pins();
+// class Pins
+// {
+//         public:
+//                 Pins(int id, ROLE role, Pins *ref);
+//                 Pins(int id, ROLE role);
+//                 Pins();
+//                 ~Pins();
 
-                int getId();   
+//                 int getId();   
 
-                bool getState();
-                void setState(bool state);
+//                 nts::Tristate getState();
+//                 void setState(nts::Tristate state);
 
-                void setReference(Pins *Pin_next);
-                Pins *getReference();
+//                 void setReference(Pins *Pin_next);
+//                 Pins *getReference();
 
-                ROLE getRole();
-                void setRole(ROLE role);
+//                 ROLE getRole();
+//                 void setRole(ROLE role);
 
-                void setGateId(std::size_t id);
-                std::size_t getGateId();
+//                 void setGateId(std::size_t id);
+//                 std::size_t getGateId();
 
-                void clock();
-        private:
-                int _id;
-                bool _state;
-                ROLE _role;
-                Pins *_ref;
-                size_t _gate_id;
-};
+//                 void clock();
+//         private:
+//                 int _id;
+//                 nts::Tristate _state;
+//                 ROLE _role;
+//                 Pins *_ref;
+//                 size_t _gate_id;
+// };
 
-#endif
+// #endif
