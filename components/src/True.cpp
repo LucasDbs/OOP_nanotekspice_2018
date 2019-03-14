@@ -8,11 +8,11 @@
 #include "../include/True.hpp"
 #include "../../shell/include/ErrorManaging.hpp"
 
-True::True(const std::string &name)
+True::True()
 {
         _links[1] = std::make_pair(nullptr, 0);
         _state = nts::Tristate::TRUE;
-        _name = name;
+        // _name = name;
 }
 
 True::~True()
@@ -24,10 +24,10 @@ nts::Tristate True::getState() const
         return _state;
 }
 
-std::string True::getName() const
-{
-        return _name;
-}
+// std::string True::getName() const
+// {
+//         return _name;
+// }
 
 void True::setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin)
 {

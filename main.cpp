@@ -10,8 +10,9 @@
 #include "shell/include/Shell.hpp"
 #include "factory/componentFactory.hpp"
 #include "shell/include/ErrorManaging.hpp"
+#include "shell/include/Parser.hpp"
 
-int main()
+int main(int ac, char **av)
 {
         // int a = 0;
         // // int b = 1;
@@ -22,39 +23,49 @@ int main()
         // catch (std::exception &e) {
         //         std::cout << e.what() << std::endl;
         // }
-        componentFactory fact;
-        auto *CMP4081 = fact.createComponent("CMP4081", "ma carte lel");
-        auto *InputA = fact.createComponent("Input", "1");
-        auto *InputB = fact.createComponent("Input", "0");
-        auto *InputC = fact.createComponent("Input", "0");
-        auto *Output = fact.createComponent("Output", "lol");
-
-        try {
-                CMP4081->setLink(1, *InputA, 1);
-                CMP4081->setLink(3, *InputB, 1);
-                CMP4081->setLink(2, *Output, 1);
-
-                // std::cout << Output->compute(1) << std::endl;
-                std::cout << InputA->getName() << std::endl;
-        }
-        catch (std::exception &e) {
-                std::cerr << e.what() << std::endl;
-        }
 
 
-        delete CMP4081;
-        delete InputA;
-        delete InputB;
-        delete InputC;
-        delete Output;
-        // std::cout << test->countGates() << std::endl;
-        return 0;
-       // CMP4071 test("carte test");
-        // if (argc < 2) {
-        //         std::cerr << "No filename specified" << std::endl;
-        //         return (84);
+        // componentFactory fact;
+        // auto *CMP4081 = fact.createComponent("CMP4081", "ma carte lel");
+        // auto *InputA = fact.createComponent("Input", "1");
+        // auto *InputB = fact.createComponent("Input", "0");
+        // auto *InputC = fact.createComponent("Input", "0");
+        // auto *Output = fact.createComponent("Output", "lol");
+
+        // try {
+        //         CMP4081->setLink(1, *InputA, 1);
+        //         CMP4081->setLink(3, *InputB, 1);
+        //         CMP4081->setLink(2, *Output, 1);
+
+        //         // std::cout << Output->compute(1) << std::endl;
+        //         std::cout << InputA->getName() << std::endl;
+        // }
+        // catch (std::exception &e) {
+        //         std::cerr << e.what() << std::endl;
         // }
 
+
+        // delete CMP4081;
+        // delete InputA;
+        // delete InputB;
+        // delete InputC;
+        // delete Output;
+        // std::cout << test->countGates() << std::endl;
+        // CMP4071 test("carte test");
+        if (ac < 2) {
+                std::cerr << "No filename specified" << std::endl;
+                return (84);
+        }
+        try {
+                Parser pars(av[1]);
+
+                pars.parseChipset(av);
+                pars.parseLink();
+        }
+        catch (const std::exception &e) {
+                std::cerr << e.what() << std::endl;
+                return (84);
+        }
         // Shell sim(argv[1]);
         // //std::cout << "Le nom de la carte est: " <<  test.getName();
         // return sim.launch();;

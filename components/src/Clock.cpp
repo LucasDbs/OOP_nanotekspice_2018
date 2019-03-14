@@ -8,10 +8,10 @@
 #include "../include/Clock.hpp"
 #include "../../shell/include/ErrorManaging.hpp"
 
-Clock::Clock(const std::string &name)
+Clock::Clock()
 {
         _links[1] = std::make_pair(nullptr, 0);
-        _name = name;
+        // _name = name;
 }
 
 Clock::~Clock()
@@ -23,10 +23,10 @@ nts::Tristate Clock::getState() const
         return _state;
 }
 
-std::string Clock::getName() const
-{
-        return _name;
-}
+// std::string Clock::getName() const
+// {
+//         return _name;
+// }
 
 void Clock::setState(std::string &state)
 {

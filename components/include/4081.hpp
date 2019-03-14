@@ -15,14 +15,14 @@
 class CMP4081: public nts::IComponent
 {
         public:
-                CMP4081(std::string name);
+                CMP4081();
                 virtual ~CMP4081();
                 std::string getName() const;
                 nts::Tristate compute(std::size_t pin = 1);
                 void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin);
 
         private:
-                std::string _name;
+                // std::string _name;
                 std::map<std::size_t, std::pair<nts::IComponent *, std::size_t> > _links;
                 std::map<std::size_t, std::pair<std::size_t, std::size_t> > _gates;
                 std::map<std::size_t, std::function<nts::Tristate(std::size_t)> > _pin_func;

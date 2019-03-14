@@ -10,9 +10,8 @@
 #include "../include/Output.hpp"
 #include "../../shell/include/ErrorManaging.hpp"
 
-CMP4081::CMP4081(std::string name)
+CMP4081::CMP4081()
 {
-        _name = name;
         for(std::size_t i = 1; i <= 14; i++)
                 _links[i] = std::make_pair(nullptr, 0);
 
@@ -41,10 +40,10 @@ CMP4081::~CMP4081()
 {
 }
 
-std::string CMP4081::getName() const
-{
-        return _name;
-}
+// std::string CMP4081::getName() const
+// {
+//         return _name;
+// }
 
 void CMP4081::setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin)
 {
@@ -61,13 +60,13 @@ void CMP4081::setLink(std::size_t pin, nts::IComponent &other, std::size_t other
 nts::Tristate CMP4081::compute(std::size_t pin)
 {
         if (_pin_func.find(pin) != _pin_func.end()) {
-                try {
+                // try {
                         return _pin_func[pin](pin);
-                }
-                catch(const std::exception &e) {
-                        std::cerr << e.what() << '\n';
-                        return nts::Tristate::UNDEFINED;
-                }
+                // }
+                // catch(const std::exception &e) {
+                        // std::cerr << e.what() << std::endl;
+                        // return 84;
+                // }
                 
         }
         throw ErrorManaging("Error in CMP4081: Pin " + std::to_string(pin) + " doesn't exist");

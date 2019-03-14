@@ -16,28 +16,28 @@ bool LOOP = false;
 
 Simulator::Simulator(const std::string &filename) : _exit(false)
 {
-        Parsing parsed(filename);
+        Parser parse(filename);
 
-        parsed.parseFile();
-        this->_inputs = parsed.getInputs();
-        this->_outputs = parsed.getOutputs();
-        this->_components = parsed.getComponents();
-        this->_inputs = parsed.getInputs();
-        this->_outputs = parsed.getOutputs();
-        this->_components = parsed.getComponents();
-        this->_command["simulate"] = &Simulator::simulate;
-        this->_command["loop"] = &Simulator::loop;
-        this->_command["dump"] = &Simulator::dump;
-        this->_command["display"] = &Simulator::display;
-        this->_command["exit"] = &Simulator::exit;
-        this->_command["changeValue"] = &Simulator::changeValue;
+        parse.parseFile();
+        _inputs = parsed.getInputs();
+        _outputs = parsed.getOutputs();
+        _components = parsed.getComponents();
+        _inputs = parsed.getInputs();
+        _outputs = parsed.getOutputs();
+        _components = parsed.getComponents();
+        _command["simulate"] = &Simulator::simulate;
+        _command["loop"] = &Simulator::loop;
+        _command["dump"] = &Simulator::dump;
+        _command["display"] = &Simulator::display;
+        _command["exit"] = &Simulator::exit;
+        _command["changeValue"] = &Simulator::changeValue;
 }
 
 int Simulator::launch()
 {
-        while (this->_exit == false) {
-                this->prompt();
-                if (this->exec_command() == 84)
+        while (_exit == false) {
+                prompt();
+                if (exec_command() == 84)
                         return (84); 
         }
         return 0;
@@ -85,7 +85,7 @@ int Simulator::exec_command()
         auto command_fct = _command.find(_lastCommand);
 
         if (command_fct != _command.end())
-                return (this->*(command_fct->second))();
+                return (*(command_fct->second))();
         try {
                 return changeValue();
         } catch (ErrorManaging &e) {
@@ -117,6 +117,6 @@ int Simulator::display()
 
 int Simulator::exit()
 {
-        this->_exit = true;
+        _exit = true;
         return (0);
 }

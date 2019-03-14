@@ -8,10 +8,16 @@
 #include "../include/Input.hpp"
 #include "../../shell/include/ErrorManaging.hpp"
 
-Input::Input(const std::string &name)
+Input::Input(const std::string &state)
 {
         _links[1] = std::make_pair(nullptr, 0);
-        _name = name;
+        if (state == "0")
+                _state = nts::Tristate::FALSE;
+        else if (state == "1")
+                _state = nts::Tristate::TRUE;
+        else
+                _state = nts::Tristate::UNDEFINED;
+        // _name = name;
 }
 
 Input::~Input()
@@ -23,10 +29,10 @@ nts::Tristate Input::getState() const
         return _state;
 }
 
-std::string Input::getName() const
-{
-        return _name;
-}
+// std::string Input::getName() const
+// {
+//         return _name;
+// }
 
 void Input::setState(std::string &state)
 {

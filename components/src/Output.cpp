@@ -8,11 +8,11 @@
 #include "../include/Output.hpp"
 #include "../../shell/include/ErrorManaging.hpp"
 
-Output::Output(const std::string &name)
+Output::Output()
 {
         _links[1] = std::make_pair(nullptr, 0);
         _state = nts::Tristate::UNDEFINED;
-        _name = name;
+        // _name = name;
 }
 
 Output::~Output()
@@ -24,10 +24,10 @@ nts::Tristate Output::getState() const
         return _state;
 }
 
-std::string Output::getName() const
-{
-        return _name;
-}
+// std::string Output::getName() const
+// {
+//         return _name;
+// }
 
 void Output::setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin)
 {

@@ -8,11 +8,11 @@
 #include "../include/False.hpp"
 #include "../../shell/include/ErrorManaging.hpp"
 
-False::False(const std::string &name)
+False::False()
 {
         _links[1] = std::make_pair(nullptr, 0);
         _state = nts::Tristate::FALSE;
-        _name = name;
+        // _name = name;
 }
 
 False::~False()
@@ -24,10 +24,10 @@ nts::Tristate False::getState() const
         return _state;
 }
 
-std::string False::getName() const
-{
-        return _name;
-}
+// std::string False::getName() const
+// {
+//         return _name;
+// }
 
 void False::setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin)
 {
