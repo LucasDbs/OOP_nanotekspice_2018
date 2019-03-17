@@ -17,7 +17,6 @@ Input::Input(const std::string &state)
                 _state = nts::Tristate::TRUE;
         else
                 _state = nts::Tristate::UNDEFINED;
-        // _name = name;
 }
 
 Input::~Input()
@@ -29,12 +28,7 @@ nts::Tristate Input::getState() const
         return _state;
 }
 
-// std::string Input::getName() const
-// {
-//         return _name;
-// }
-
-void Input::setState(std::string &state)
+void Input::setState(const std::string &state)
 {
         if (state == "0")
                 _state = nts::Tristate::FALSE;
@@ -61,5 +55,4 @@ nts::Tristate Input::compute(std::size_t pin)
         if (_links.find(pin) != _links.end())
                 return _state;
         throw ErrorManaging("Error in Input: Pin " + std::to_string(pin) + " doesn't exist");        
-        return nts::Tristate::UNDEFINED;
 }

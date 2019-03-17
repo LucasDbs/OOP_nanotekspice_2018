@@ -20,4 +20,4 @@ class ErrorManaging : public std::exception {
                 std::string _msg;
 };
 
-#endif // ERRORMANAGING_HPP_
+#endif

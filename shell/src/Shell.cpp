@@ -1,55 +1,53 @@
 //
 // EPITECH PROJECT, 2019
-// NanoTekSpice
+// Lucas Duboisse
 // File description:
-// Shell 
+// Shell.cpp
 //
 
 #include <iostream>
 #include <csignal>
 #include <map>
+#include <functional>
 #include "../include/ErrorManaging.hpp"
-#include "../include/Parsing.hpp"
 #include "../include/Shell.hpp"
 
 bool LOOP = false;
 
-Simulator::Simulator(const std::string &filename) : _exit(false)
+Shell::Shell(Parser &parser) : _exit(false)
 {
-        Parser parse(filename);
-
-        parse.parseFile();
-        _inputs = parsed.getInputs();
-        _outputs = parsed.getOutputs();
-        _components = parsed.getComponents();
-        _inputs = parsed.getInputs();
-        _outputs = parsed.getOutputs();
-        _components = parsed.getComponents();
-        _command["simulate"] = &Simulator::simulate;
-        _command["loop"] = &Simulator::loop;
-        _command["dump"] = &Simulator::dump;
-        _command["display"] = &Simulator::display;
-        _command["exit"] = &Simulator::exit;
-        _command["changeValue"] = &Simulator::changeValue;
+        _chipset = parser.getChipset();
+        _components = parser.getComponent();
+        _command["simulate"] = &Shell::simulate;
+        _command["loop"] = &Shell::loop;
+        _command["dump"] = &Shell::dump;
+        _command["display"] = &Shell::display;
+        _command["exit"] = &Shell::exit;
+        simulate();
+        display();
 }
 
-int Simulator::launch()
+int Shell::launch()
 {
         while (_exit == false) {
                 prompt();
-                if (exec_command() == 84)
-                        return (84); 
+                exec_command();
         }
         return 0;
 }
 
-int Simulator::simulate()
+int Shell::simulate()
 {
-        std::cout << "simulate" << std::endl;
+        std::map<std::string, std::string>::iterator it;
+
+        for (it = _chipset.begin(); it != _chipset.end(); it++) {
+                if (it->second == "output")
+                        _components[it->first]->compute();
+        }
         return 0;
 }
 
-int Simulator::changeValue()
+int Shell::changeValue()
 {
         std::string input;
         std::string value;
@@ -62,61 +60,71 @@ int Simulator::changeValue()
                 throw ErrorManaging("The input name is not entered");
         else if (value.empty())
                 throw ErrorManaging("The value's input is not entered");
+        else if (!_components[input])
+                throw ErrorManaging("Input doesn't exist");
+        _components[input]->setState(value);
         return 0;
 }
 
-void Simulator::exit_loop(int signal)
+void Shell::exit_loop(int signal)
 {
+        (void)signal;
+
         std::signal(SIGINT, SIG_DFL);
         LOOP = false;
 }
 
-int Simulator::loop()
+int Shell::loop()
 {
-        std::signal(SIGINT, &Simulator::exit_loop);
+        std::signal(SIGINT, &Shell::exit_loop);
         LOOP = true;
         while (LOOP)
-                std::cout << "loop" << std::endl;
+                simulate();
         return 0;
 }
 
-int Simulator::exec_command()
+int Shell::exec_command()
 {
         auto command_fct = _command.find(_lastCommand);
 
         if (command_fct != _command.end())
-                return (*(command_fct->second))();
+                return _command[_lastCommand](*this);
         try {
                 return changeValue();
         } catch (ErrorManaging &e) {
                 std::cerr << e.what() << std::endl;
-                std::exit(84);
         }
-        return (0);
+        return 0;
 }
 
-void Simulator::prompt()
+void Shell::prompt()
 {
-        std::string result;
-
         std::cout << "> ";
         std::cin >> _lastCommand;
         if (std::cin.eof())
               _lastCommand = "exit";
 }
 
-int Simulator::dump()
+int Shell::dump()
 {
         std::cout << "dump" << std::endl;
+        return 0;
 }
 
-int Simulator::display()
+int Shell::display()
 {
-        std::cout << "display" << std::endl;
+        std::map<std::string, std::string>::iterator it;
+
+        for (it = _chipset.begin(); it != _chipset.end(); it++) {
+                if (it->second == "output")
+                        std::cout << it->first << "="
+                        <<_components[it->first]->getState() << std::endl;
+        }
+        return 0;
 }
 
-int Simulator::exit()
+int Shell::exit()
 {
         _exit = true;
-        return (0);
+        return 0;
 }

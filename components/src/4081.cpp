@@ -40,10 +40,16 @@ CMP4081::~CMP4081()
 {
 }
 
-// std::string CMP4081::getName() const
-// {
-//         return _name;
-// }
+nts::Tristate CMP4081::getState() const
+{
+        return nts::Tristate::UNDEFINED;
+}
+
+void CMP4081::setState(const std::string &state)
+{
+        (void)state;
+        return ;
+}
 
 void CMP4081::setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin)
 {
@@ -59,18 +65,9 @@ void CMP4081::setLink(std::size_t pin, nts::IComponent &other, std::size_t other
 
 nts::Tristate CMP4081::compute(std::size_t pin)
 {
-        if (_pin_func.find(pin) != _pin_func.end()) {
-                // try {
-                        return _pin_func[pin](pin);
-                // }
-                // catch(const std::exception &e) {
-                        // std::cerr << e.what() << std::endl;
-                        // return 84;
-                // }
-                
-        }
+        if (_pin_func.find(pin) != _pin_func.end())
+                return _pin_func[pin](pin);
         throw ErrorManaging("Error in CMP4081: Pin " + std::to_string(pin) + " doesn't exist");
-        return nts::Tristate::UNDEFINED;
 }
 
 nts::Tristate CMP4081::inputPin(std::size_t pin)
@@ -83,7 +80,6 @@ nts::Tristate CMP4081::inputPin(std::size_t pin)
                 return _links[pin].first->compute(_links[pin].second);
         }
         throw ErrorManaging("Error in CMP4081: Pin " + std::to_string(pin) + " isn't linked to anything");
-        return nts::Tristate::UNDEFINED;        
 }
 
 nts::Tristate CMP4081::outputPin(std::size_t pin)

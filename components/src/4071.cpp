@@ -12,7 +12,6 @@
 
 CMP4071::CMP4071(std::string name)
 {
-        _name = name;
         for(std::size_t i = 1; i <= 14; i++)
                 _links[i] = std::make_pair(nullptr, 0);
 
@@ -71,7 +70,6 @@ nts::Tristate CMP4071::compute(std::size_t pin)
                 
         }
         throw ErrorManaging("Error in CMP4081: Pin " + std::to_string(pin) + " doesn't exist");
-        return nts::Tristate::UNDEFINED;
 }
 
 nts::Tristate CMP4071::inputPin(std::size_t pin)
@@ -84,7 +82,6 @@ nts::Tristate CMP4071::inputPin(std::size_t pin)
                 return _links[pin].first->compute(_links[pin].second);
         }
         throw ErrorManaging("Error in CMP4081: Pin " + std::to_string(pin) + " isn't linked to anything");
-        return nts::Tristate::UNDEFINED;        
 }
 
 nts::Tristate CMP4071::outputPin(std::size_t pin)

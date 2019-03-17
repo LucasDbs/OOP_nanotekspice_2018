@@ -9,27 +9,14 @@
 #define COMPONENT_FACTORY_HPP_
 
 #include <string>
-// #include <utility>
 #include <iostream>
 #include <map>
 #include <functional>
 #include "../components/include/IComponent.hpp"
-// #include "../components/include/2716.hpp"
-// #include "../components/include/4001.hpp"
-// #include "../components/include/4008.hpp"
-// #include "../components/include/4011.hpp"
-// #include "../components/include/4013.hpp"
-// #include "../components/include/4017.hpp"
-// #include "../components/include/4030.hpp"
-// #include "../components/include/4040.hpp"
-// #include "../components/include/4069.hpp"
-// #include "../components/include/4071.hpp"
 #include "../components/include/4081.hpp"
 #include "../components/include/Input.hpp"
 #include "../components/include/Output.hpp"
-// #include "../components/include/4094.hpp"
-// #include "../components/include/4514.hpp"
-// #include "../components/include/4801.hpp"
+#include "../components/include/Clock.hpp"
 
 class componentFactory
 {
@@ -42,4 +29,4 @@ class componentFactory
                 std::map<std::string, std::function<nts::IComponent *(const std::string &)> > m_map;
 };
 
-#endif // COMPONENT_FACTORY_HPP_
+#endif

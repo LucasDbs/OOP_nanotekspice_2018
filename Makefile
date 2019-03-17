@@ -14,6 +14,8 @@ SRC	=	main.cpp			\
 		components/src/Output.cpp	\
 		shell/src/ErrorManaging.cpp	\
 		shell/src/Parser.cpp		\
+		shell/src/Shell.cpp		\
+		components/src/Clock.cpp
 		# components/src/4008.cpp	\
 		# components/src/4011.cpp	\
 		# components/src/4030.cpp	\

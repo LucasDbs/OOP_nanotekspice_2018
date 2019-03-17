@@ -22,7 +22,6 @@ class CMP4008: public nts::IComponent
                 void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin);
 
         private:
-                std::string _name;
                 std::map<std::size_t, std::pair<nts::IComponent *, std::size_t> > _links;
                 std::map<std::size_t, std::pair<std::size_t, std::size_t> > _gates;
                 std::map<std::size_t, std::function<nts::Tristate(std::size_t)> > _pin_func;

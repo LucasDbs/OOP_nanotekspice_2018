@@ -12,7 +12,6 @@
 
 CMP4008::CMP4008(std::string name)
 {
-        _name = name;
         for(std::size_t i = 1; i <= 14; i++)
                 _links[i] = std::make_pair(nullptr, 0);
 

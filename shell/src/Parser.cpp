@@ -21,20 +21,25 @@ Parser::Parser(const std::string &filename)
 
 Parser::~Parser()
 {
+        _file.close();
 }
 
-std::string Parser::removeComments(std::string &line)
+std::map<std::string, std::string> Parser::getChipset()
 {
-        if (line.find('#') == line.npos)
-                return line;
-        return line.substr(0, line.find('#'));
+        return _chipset;
+}
+
+std::map<std::string, nts::IComponent *> Parser::getComponent()
+{
+        return _components;
 }
 
 void Parser::createComponents()
 {
         componentFactory fact;
+        std::map<std::string, std::string>::iterator it;
 
-        for(std::map<std::string, std::string>::iterator it = _chipset.begin(); it!=_chipset.end() ; it++) {
+        for (it = _chipset.begin(); it != _chipset.end(); it++) {
                 if (it->second == "input")
                         throw ErrorManaging("Error: input " + it->first + " is unspecified.");
                 _components[it->first] = fact.createComponent(it->second, it->first);
@@ -57,7 +62,7 @@ void Parser::verifyInput(char **av)
                         value = str.substr(str.find("=") + 1, std::string::npos);
                         if (_chipset[name].empty())
                                 throw ErrorManaging("Error: " + name + " don't exist in file");
-                        else if (_chipset[name] != "input")
+                        else if (_chipset[name] != "input" && _chipset[name] != "clock")
                                 throw ErrorManaging("Error: " + name + " isn't a input");
                         else {
                                 _components[name] = fact.createComponent(_chipset[name], value);
@@ -87,7 +92,8 @@ void Parser::fillChipset(std::string &line)
                         else
                                 throw ErrorManaging("Error in configuration file: " + second + " already exist");
                 } else if (!line.empty())
-                        throw ErrorManaging("Error parsing: syntaxe error in \".chipset\" section");
+                        if (line.at(0) != '#')
+                                throw ErrorManaging("Error parsing: syntaxe error in \".chipset\" section");
         }
 }
 
@@ -133,11 +139,12 @@ void Parser::makeLinks(std::string &line)
                                 throw ErrorManaging("Error link: " + name1 + " not found");
                         else if (!_components[name2])
                                 throw ErrorManaging("Error link: " + name2 + " not found");
-                        else {
+                        else
                                 _components[name1]->setLink(std::stoi(value1), *_components[name2], std::stoi(value2));
-                        }
-                } else if (!line.empty())
-                        throw ErrorManaging("Error parsing: syntaxe error in \".links\" section");
+                } else if (!line.empty()) {
+                        if (line.at(0) != '#')
+                                throw ErrorManaging("Error parsing: syntaxe error in \".links\" section");
+                }
         }
 }
 
@@ -150,7 +157,6 @@ void Parser::parseLink()
         while (std::getline(_file, line)) {
                 if (line.find(".links") != std::string::npos) {
                         makeLinks(line);
-                        std::cout << _components["out"]->compute() << std::endl;
                         return ;
                 }
         }

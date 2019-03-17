@@ -18,20 +18,23 @@ class Parser {
                 Parser(const std::string &filename);
                 ~Parser();
 
-                std::string removeComments(std::string &line);
+                // std::string removeComments(std::string &line);
                 void parseChipset(char **av);
                 void parseLink();
+                std::map<std::string, std::string> getChipset();
+                std::map<std::string, nts::IComponent *> getComponent();
+
         private:
                 std::ifstream _file;
                 std::map<std::string, std::string> _chipset;
                 std::map<std::string, size_t> _inputs;
+                std::map<std::string, nts::IComponent *> _components;
 
                 void createComponents();
                 void fillChipset(std::string &line);
                 void verifyInput(char **av);
 
                 void makeLinks(std::string &line);
-                std::map<std::string, nts::IComponent *> _components;
 };
 
-#endif // PARSING_HPP_
+#endif

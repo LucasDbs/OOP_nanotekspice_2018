@@ -12,7 +12,6 @@ Output::Output()
 {
         _links[1] = std::make_pair(nullptr, 0);
         _state = nts::Tristate::UNDEFINED;
-        // _name = name;
 }
 
 Output::~Output()
@@ -24,10 +23,11 @@ nts::Tristate Output::getState() const
         return _state;
 }
 
-// std::string Output::getName() const
-// {
-//         return _name;
-// }
+void Output::setState(const std::string &state)
+{
+        (void)state;
+        return ;
+}
 
 void Output::setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin)
 {
@@ -50,5 +50,4 @@ nts::Tristate Output::compute(std::size_t pin)
                 return _state;
         }
         throw ErrorManaging("Error in Output: Pin " + std::to_string(pin) + " doesn't exist");
-        return _state;
 }

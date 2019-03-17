@@ -8,10 +8,15 @@
 #include "../include/Clock.hpp"
 #include "../../shell/include/ErrorManaging.hpp"
 
-Clock::Clock()
+Clock::Clock(const std::string &state)
 {
         _links[1] = std::make_pair(nullptr, 0);
-        // _name = name;
+        if (state == "0")
+                _state = nts::Tristate::FALSE;
+        else if (state == "1")
+                _state = nts::Tristate::TRUE;
+        else
+                _state = nts::Tristate::UNDEFINED;
 }
 
 Clock::~Clock()
@@ -23,12 +28,7 @@ nts::Tristate Clock::getState() const
         return _state;
 }
 
-// std::string Clock::getName() const
-// {
-//         return _name;
-// }
-
-void Clock::setState(std::string &state)
+void Clock::setState(const std::string &state)
 {
         if (state == "0")
                 _state = nts::Tristate::FALSE;
@@ -67,5 +67,4 @@ nts::Tristate Clock::compute(std::size_t pin)
                 return to_return;
         }
         throw ErrorManaging("Error in Clock: Pin " + std::to_string(pin) + " doesn't exist");
-        return nts::Tristate::UNDEFINED;
 }

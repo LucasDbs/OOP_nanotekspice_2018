@@ -1,29 +1,29 @@
 //
 // EPITECH PROJECT, 2019
-// NanoTekSpice
+// Lucas Duboisse
 // File description:
-// Shell 
+// Shell.hpp
 //
 
 #if !defined(SIMULATOR_HPP_)
 #define SIMULATOR_HPP_
 
 #include "../../components/include/IComponent.hpp"
+#include "Parser.hpp"
 #include <iostream>
 #include <map>
 
-class Simulator
+class Shell
 {
         public:
-                Simulator(const std::string &filename);
-                ~Simulator(){};
+                Shell(Parser &parser);
+                ~Shell(){};
                 int launch();
         private:
                 std::string _lastCommand;
-                std::map<std::string, int(Simulator::*)(void)> _command;
-                nts::IComponent *_inputs;
-                nts::IComponent *_outputs;
-                nts::IComponent *_components;
+                std::map<std::string, std::function<int (Shell &)> > _command;
+                std::map<std::string, std::string> _chipset;
+                std::map<std::string, nts::IComponent *> _components;
                 bool _exit;
 
                 int simulate();
@@ -37,4 +37,4 @@ class Simulator
                 int display();
 };
 
-#endif // SIMULATOR_HPP_
+#endif
